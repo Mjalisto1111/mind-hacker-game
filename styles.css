@@ -1,0 +1,261 @@
+:root {
+  --bg: #050b08;
+  --bg-2: #07180f;
+  --panel: #0b1d14;
+  --line: #1f5f3f;
+  --text: #9afeaf;
+  --text-dim: #53d679;
+  --accent: #42f87a;
+  --error: #ff4f6b;
+  --warn: #ffc94a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Consolas, "Courier New", monospace;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(66, 248, 122, 0.1), transparent 20%),
+    radial-gradient(circle at 80% 80%, rgba(66, 248, 122, 0.08), transparent 24%),
+    linear-gradient(160deg, var(--bg), var(--bg-2));
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(9, 25, 17, 0),
+    rgba(9, 25, 17, 0) 2px,
+    rgba(28, 66, 45, 0.16) 3px
+  );
+  opacity: 0.22;
+}
+
+.terminal-shell {
+  width: min(900px, calc(100% - 1.6rem));
+  margin: 1rem auto 1.8rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.top-panel,
+.puzzle-card,
+.log-card {
+  background: linear-gradient(165deg, rgba(11, 29, 20, 0.96), rgba(9, 23, 16, 0.9));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(66, 248, 122, 0.08), 0 22px 40px rgba(0, 0, 0, 0.45);
+}
+
+.top-panel {
+  padding: 1.1rem 1.1rem 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(66, 248, 122, 0.45);
+}
+
+.subtitle {
+  margin: 0.4rem 0 1rem;
+  color: var(--text-dim);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.stat-box {
+  border: 1px solid #1f583b;
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+  background: rgba(11, 35, 22, 0.65);
+}
+
+.stat-box span {
+  display: block;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+.stat-box strong {
+  font-size: 1.2rem;
+}
+
+.timer-box strong {
+  color: var(--warn);
+}
+
+.progress-track {
+  margin-top: 0.75rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #0b2d1d;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #2fe069, #84ffb1);
+  transition: width 280ms ease;
+}
+
+.puzzle-card {
+  padding: 1.1rem;
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.puzzle-card.transitioning {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.puzzle-type {
+  margin: 0;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+h2 {
+  margin: 0.45rem 0 0.5rem;
+  font-size: clamp(1rem, 4.4vw, 1.4rem);
+}
+
+.hint-text {
+  min-height: 1.15rem;
+  margin: 0 0 0.9rem;
+  color: #7ee69f;
+}
+
+.answer-form {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.answer-form label {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.answer-row {
+  display: flex;
+  gap: 0.55rem;
+}
+
+input,
+button {
+  font: inherit;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #2b7a54;
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  background: rgba(9, 23, 16, 0.92);
+  color: var(--text);
+}
+
+button {
+  border: 1px solid #2b7a54;
+  background: #103722;
+  color: var(--accent);
+  border-radius: 10px;
+  padding: 0.72rem 1rem;
+  cursor: pointer;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  background: #14482d;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button.ghost {
+  background: #0a2618;
+  color: #7ee69f;
+}
+
+.actions-row {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.feedback {
+  min-height: 1.2rem;
+  margin: 0.8rem 0 0;
+  font-weight: 700;
+}
+
+.feedback.ok {
+  color: var(--accent);
+}
+
+.feedback.bad {
+  color: var(--error);
+}
+
+.log-card {
+  padding: 1rem;
+}
+
+.log-card h3 {
+  margin: 0 0 0.7rem;
+  color: var(--text-dim);
+}
+
+#logList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  max-height: 220px;
+  overflow: auto;
+}
+
+#logList li {
+  border: 1px solid #194b32;
+  border-radius: 10px;
+  background: rgba(8, 21, 15, 0.85);
+  padding: 0.55rem 0.65rem;
+  line-height: 1.4;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .stats-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .answer-row,
+  .actions-row {
+    flex-direction: column;
+  }
+}
